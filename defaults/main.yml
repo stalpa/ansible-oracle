@@ -1,0 +1,32 @@
+---
+oracle_dependencies:
+     - epel-release
+     - unzip
+     - htop
+     - wget
+     - elfutils-libelf-devel
+     - kernel-uek
+     - oracle-rdbms-server-11gR2-preinstall
+
+installer_archives:
+     - p13390677_112040_Linux-x86-64_1of7.zip
+     - p13390677_112040_Linux-x86-64_2of7.zip
+
+#suitecrm_version: 7.8.2
+#suitecrm_install_dir: /var/www/html
+#suitecrm_dir: /var/www/html/suitecrm
+
+#suitecrm_frontend_host: localhost
+
+#suitecrm_timezone: America/Chicago
+
+# for RedHat systems (and derivatives).
+#mysql_enablerepo: ""
+
+#mysql_packages:
+#    - Percona-Server-devel-56
+#    - Percona-Server-server-56
+#    - MySQL-python27
+   
+#mysql_service_enabled: yes
+#mysql_service_state: restarted
