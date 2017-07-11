@@ -1,0 +1,12 @@
+#/bin/bash
+
+umask 022
+	PATH=/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin:$PATH
+	LD_LIBRARY_PATH=/usr/lib:/usr/X11R6/lib:$LD_LIBRARY_PATH
+        NLS_LANG=American_Russia.cl8mswin1251
+	ORACLE_BASE=/opt/db/oracle
+	ORACLE_HOME=$ORACLE_BASE/product/11g
+	ORACLE_SID=me
+	PATH=$ORACLE_HOME/bin:$PATH
+        ORACLE_HOME_LISTNER=$ORACLE_HOME
+	export PATH LD_LIBRARY_PATH ORACLE_BASE ORACLE_HOME ORACLE_SID ORACLE_HOME_LISTNER

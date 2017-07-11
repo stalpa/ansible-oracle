@@ -1,0 +1,44 @@
+---
+- name: "Create folder for installation files" 
+  file: 
+    state: directory 
+    path: /opt/install
+ 
+# ==> Copy installer files 
+- name: "Copy installer files" 
+  copy: 
+    src: "{{ item }}"
+    dest: /opt/install/ 
+  with_items: 
+     - "{{ installer_archives }}" 
+
+- name: "Delete old extract files"
+  shell: rm -rf /opt/install/database/
+  args:
+     warn: no
+  
+# ==> extract files 
+- name: "Extract installation files" 
+  command: 'unzip /opt/install/"{{ item }}" -d /opt/install/' 
+  with_items: 
+     - "{{ installer_archives }}" 
+
+# ==> generate response file 
+- name: "Gerenerate the response file for software only installation" 
+  template: 
+     src: db_install.rsp 
+     dest: /opt/install/db_install.rsp 
+     owner: oracle
+     group: oinstall
+     mode: 0644
+
+# ==> execute installation 
+- name: "Install Product" 
+  shell: /opt/install/database/runInstaller -silent -ignorePrereq -ignoreSysPrereqs -waitforcompletion -responseFile /opt/install/db_install.rsp 
+  become: true
+  become_user: oracle
+  become_method: su
+
+- name: "Run root.sh"
+  shell: "/opt/db/oracle/product/11g/root.sh"
+

@@ -1,0 +1,4 @@
+Computer Configuration\Windows Settings\Security Settings\Account Policies\Password Policy\Password must meet complexity requirements -> Disabled
+Computer Configuration\Administrative Templates\System\Display Shutdown Event Tracker -> Disabled
+chkconfig libvirtd on
+virsh autostart win2008

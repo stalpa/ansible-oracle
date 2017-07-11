@@ -1,0 +1,51 @@
+---
+- name: "Create responsefile for dbca"
+  template: 
+     src: dbca.rsp 
+     dest: "/opt/install/dbca.rsp"
+     owner: oracle 
+     group: oinstall 
+  #   mode: 655 
+  #   backup: no
+  #debug: var=msg
+
+- name: "Create database"
+  shell: "/opt/db/oracle/product/11g/bin/dbca -silent -responseFile /opt/install/dbca.rsp"
+  become: true
+  become_user: oracle
+  become_method: su
+
+#time /opt/db/oracle/product/11g/bin/dbca -createDatabase -responseFile /opt/install/dbca.rsp -silent"
+#-gdbname oracle -sid oracle
+
+#- name: Update oratab
+#  lineinfile: 
+#     dest: /etc/oratab 
+#     line: "{{ item.1.stdout }}:{{ oracle_home_db }}:N" state=present
+#  with_together:
+#  - "{{oracle_databases}}"
+#  - "{{dbs.results}}"
+#  when: item.0.oracle_db_type != "SI"
+#  tags: update_oratab
+
+#- name: Customize oratab for autostart
+#  lineinfile: dest=/etc/oratab line="{{ item.oracle_db_name }}:{{ oracle_home_db }}:Y" state=present
+#  with_items:
+#       - "{{ oracle_databases }}"
+#  when: autostartup_service
+#  tags: update_oratab
+
+#- name: Customize oratab for autostart
+#  lineinfile: dest=/etc/oratab line="{{ item.oracle_db_name }}:{{ oracle_home_db }}:N" state=absent
+#  with_items:
+#       - "{{ oracle_databases }}"
+#  when: autostartup_service
+#  become: yes
+#  tags: update_oratab
+
+#- name: Check if database is running
+#  shell: ps -ef |grep pmon |grep -v grep
+#  tags:
+#   - psout
+#  register: psout
+#  ignore_errors: true

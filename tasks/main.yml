@@ -1,0 +1,15 @@
+---
+- name: "Configuring"
+  include: configure.yml
+
+- name: "Create"
+  include: create.yml
+
+- name: "Listener"
+  include: listener.yml
+
+- name: "DB"
+  include: db.yml
+
+#- name: "Cleanup"
+#  include: cleanup.yml

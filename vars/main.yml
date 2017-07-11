@@ -1,6 +1,3 @@
-# name of the service
-#mysql_service: mysql
-
 # Oracle repository specified to use in the installation
 #oracle_repository: http://public-yum.oracle.com/public-yum-ol6.repo
 
@@ -15,39 +12,31 @@ oracle_base: /opt/db
 #  - 'linuxamd64_12102_database_1of2.zip' 
 #  - 'linuxamd64_12102_database_2of2.zip' 
  
-install_db: INSTALL_DB_SWONLY
-oracle_hostname: oracle 
-inventory_os_group: oinstall 
-inventory_location: "{{ oracle_base }}/inventory"
-oracle_home: "{{ oracle_base }}/oracle/product/11g"
+#install_db: INSTALL_DB_SWONLY
+#oracle_hostname: oracle 
+#inventory_os_group: oinstall 
+#inventory_location: "{{ oracle_base }}/inventory"
+#oracle_home: "{{ oracle_base }}/oracle/product/11g"
 
-oracle_install_version: 
-dbhome_name: "{{ oracle_base }}/oracle/product/11g"
-oracle_edition: EE 
-oracle_dba_group: dba 
-oracle_oper_group: oper 
-oracle_database_type: GENERAL_PURPOSE 
-oracle_globalname: oracle 
-oracle_sid: oracle 
-create_container_database: true 
-number_of_pdbs: 1 
-oracle_conf_as_container_db: true
-pdb_prefix: db
-oracle_pdb_name: db01 
-oracle_charset: CL8MSWIN1251
-oracle_memory_option: false 
+#oracle_install_version: 
+#dbhome_name: "{{ oracle_base }}/oracle/product/11g"
+#oracle_edition: EE 
+#oracle_dba_group: dba 
+#oracle_oper_group: oper 
+#oracle_database_type: GENERAL_PURPOSE 
+#oracle_globalname: oracle 
+#oracle_sid: oracle 
+#create_container_database: true 
+#number_of_pdbs: 1 
+#oracle_conf_as_container_db: true
+#pdb_prefix: db
+#oracle_pdb_name: db01 
+#oracle_charset: CL8MSWIN1251
+#oracle_memory_option: false 
 
-# memory target 
-oracle_memory_mb: 1536 
-oracle_install_samples: true
-oracle_management_option: DEFAULT
-oracle_enable_recovery: true
-oracle_storage_type: FILE_SYSTEM_STORAGE
-oracle_dataloc: "{{ oracle_base }}/oradata" 
-oracle_recoveryloc: "{{ oracle_base }}/recovery_area"
-oracle_decline_security_updates: yes 
-hugepages_nr: 578
-
-oracle_os_user_pass: fechareho 
-oracle_pass_all_users: oracle 
- 
+# shell environment for the oracle user
+ora_user_env:
+  ORACLE_BASE: "{{ oracle_path }}/oracle"
+  ORACLE_SID: "{{ oracle_db_name }}"
+  ORACLE_HOME: "{{ oracle_path }}/oracle/product/11g"
+  NLS_LANG: "AMERICAN_RUSSIA.CL8MSWIN1251"

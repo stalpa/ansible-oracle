@@ -1,0 +1,135 @@
+--- 
+# ==> Configure Linux 
+#- name: "Install required libraries" 
+#  yum: 
+#    name: "{{ item }}"
+#    state: present 
+#  with_items: packages_list
+ 
+#- name: "Disable SELinux" 
+#  selinux: 
+#     state: disabled
+ 
+#- name: "Disable Firewall Deamon (firewalld)"
+#  service: 
+#    name: firewalld
+#    state: stopped
+#    enabled: no 
+
+- name: "Add oracle repository" 
+  template: 
+    src: public-yum-ol6.repo.j2   
+    dest: /etc/yum.repos.d/public-yum-ol6.repo 
+    owner: root
+    group: root
+    mode: 0644
+
+- name: "Copy and install RPM-GPG-KEY-oracle-ol6"
+  template:
+    src: RPM-GPG-KEY-oracle-ol6.j2
+    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+
+- name: "Install dependencies"
+  yum:
+     pkg: "{{ item }}"
+     state: present
+  with_items:
+    - "{{ oracle_dependencies }}"
+
+# ==> Create users and groups 
+- name: "Create groups" 
+  group:
+#     name: "{{ oracle_install_group }}"
+    name: oinstall
+    state: present 
+
+- name: "add extra groups" 
+  group: 
+    name: "{{ item }}"
+    state: present 
+#  with_items: extra_groups
+  with_items:
+        - dba
+        - oper
+
+- name: "Create user" 
+  user: 
+    name: oracle 
+    group: oinstall
+    password: fechareho 
+
+- name: "Add extra groups" 
+  user: 
+    name: oracle 
+    groups: "{{ item }}" 
+    append: yes 
+  with_items: 
+       - dba
+       - oper 
+
+- name: "Create ORA_HOME dir" 
+  shell: ORA_HOME=/opt/db
+#- shell: mkdir -p /opt/db/oracle/product/11g
+- file:  
+     path: /opt/db/oracle/product/11g  
+     state: directory
+     recurse: yes 
+     owner: oracle 
+     group: oinstall 
+
+- shell: swapon -a
+
+- name: "Create Backup dir"
+  file:
+     path: /backups
+     state: directory
+     recurse: yes
+     owner: oracle
+     group: oinstall
+- shell: echo "inst_group=oinstall" > /etc/oraInstal.loc
+- file:
+     path: /etc/oraInstal.loc
+     owner: oracle
+     group: oinstall
+     mode: 0664
+
+- name: "Add oracle bash_profile"
+  template:
+    src: bash_profile.j2
+    dest: /home/oracle/.bash_profile
+    owner: oracle
+    group: dba
+    mode: 0640
+
+- name: "Configure the 'bash_oracle' file" 
+  lineinfile:  
+     dest: /home/oracle/.bash_profile
+     regexp: ^ORACLE_SID=me  
+     line: ORACLE_SID=oracle 
+     backup: yes 
+
+- name: "Remove old dbora and links"
+  shell: rm -rf "{{ item }}"
+  with_items:
+      - /etc/init.d/dbora
+      - /etc/rc.d/rc3.d/S98dbora 
+      - /etc/rc.d/rc3.d/K01dbora 
+      - /etc/rc.d/rc5.d/S98dbora 
+      - /etc/rc.d/rc5.d/K01dbora
+  args:
+     warn: no
+
+- name: "Add the 'dbora' config files"
+  template:
+    src: dbora.j2
+    dest: /etc/init.d/dbora
+    owner: root
+    group: root
+    mode: 0655
+
+- name: "enable 'dbora' script to run at startup"
+  shell: chkconfig --add dbora 
+- shell: ln -s /etc/init.d/dbora /etc/rc.d/rc3.d/S98dbora
+- shell: ln -s /etc/init.d/dbora /etc/rc.d/rc3.d/K01dbora
+- shell: ln -s /etc/init.d/dbora /etc/rc.d/rc5.d/S98dbora
+- shell: ln -s /etc/init.d/dbora /etc/rc.d/rc5.d/K01dbora
