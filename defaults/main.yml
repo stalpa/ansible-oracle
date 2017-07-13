@@ -29,10 +29,10 @@ oracle_tmp: /tmp/oracle
 oracle_path: /opt/db
 
 # ORACLE_SID
-oracle_db_name: oracle
+oracle_db_name: oracle11
 
 # ORACLE_HOME basename, {{ oracle_path }}/oracle/product/11g
-oracle_db_home: oracle_db_home
+oracle_db_home: "{{ oracle_path }}/oracle/product/11g"
 
 # initial db user
 oracle_db_user: oracle
@@ -40,11 +40,14 @@ oracle_db_user: oracle
 # password for the initial db user
 oracle_db_pass: fechareho
 
-# password for the sysdba
-oracle_db_syspass: fechareho
+# password for the database users
+oracle_db_syspass: sys
+oracle_db_system: system
+oracle_db_dbsnmp: dbsnmp
 
-# system memory to allocate to the db server (40% total memory)
-oracle_db_mem: "{{ ( ansible_memtotal_mb * 10 ) // 25 }}"
+# system memory to allocate to the db server (60% total memory)
+oracle_characterSet: CL8MSWIN1251
+oracle_memoryPercentage: 60
 
 #
 # oracle system user
@@ -53,8 +56,6 @@ oracle_db_mem: "{{ ( ansible_memtotal_mb * 10 ) // 25 }}"
 # oracle user username
 oracle_user: oracle
 
-# hashed password for the oracle user
-# python -c 'import crypt; print crypt.crypt("oracle", "$1$salt$")'
 oracle_pass: fechareho
 
 # primary oracle group

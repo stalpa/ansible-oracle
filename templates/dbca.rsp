@@ -75,7 +75,7 @@ OPERATION_TYPE = "createDatabase"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-GDBNAME ="orcl11"
+GDBNAME = "orcl11g.us.oracle.com"
 
 #-----------------------------------------------------------------------------
 # Name          : RACONENODE
@@ -167,7 +167,7 @@ GDBNAME ="orcl11"
 # Default value : <db_name> specified in GDBNAME
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-SID = "orcl11"
+SID = "orcl11g"
 
 #-----------------------------------------------------------------------------
 # Name          : NODELIST
@@ -208,7 +208,7 @@ TEMPLATENAME = "General_Purpose.dbc"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-SYSPASSWORD = "sys"
+#SYSPASSWORD = "password"
 
 #-----------------------------------------------------------------------------
 # Name          : SYSTEMPASSWORD
@@ -218,7 +218,7 @@ SYSPASSWORD = "sys"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-SYSTEMPASSWORD = "system"
+#SYSTEMPASSWORD = "password"
 
 #-----------------------------------------------------------------------------
 # Name          : EMCONFIGURATION
@@ -520,7 +520,7 @@ SYSTEMPASSWORD = "system"
 # Default value : None
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-MEMORYPERCENTAGE = "60"
+#MEMORYPERCENTAGE = "40"
 
 #-----------------------------------------------------------------------------
 # Name          : DATABASETYPE

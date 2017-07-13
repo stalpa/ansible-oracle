@@ -1,22 +1,11 @@
 ---
-- name: listener | Create responsefile for listener configuration
+- name: "listener | Create responsefile for listener configuration"
   template: 
      src: netca.rsp 
      dest: "/opt/install/netca.rsp"
-#  become: true
-#  become_user: oracle
-#  become_method: su
 
 - name: listener | Create listener
   shell: "/opt/db/oracle/product/11g/bin/netca -responseFile /opt/install/netca.rsp -silent"
   become: true
   become_user: oracle
   become_method: su
-
-
-#  with_items:
-#      - "{{ oracle_databases }}"
-#  args:
-#      creates: "{{ oracle_home_db }}/network/admin/listener.ora"
-#  become: true
-#  become_user: oracle
