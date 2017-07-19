@@ -1,6 +1,6 @@
 ---
 - name: "Move oracle repository to the /tmp dir"
-  shell: mv /etc/yum.repos.d/public-yum-ol6.repo /tmp
+  shell: mv /etc/yum.repos.d/{{ ol_repo_file }} /tmp
 
 - name: "Move RPM-GPG-KEY-oracle to the /tmp dir"
   shell: mv /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle /tmp
@@ -10,7 +10,7 @@
   args:
      warn: no
 
-#- name: "Remove zipfile"
-#  file:
-#    path: "{{ suitecrm_install_dir }}/SuiteCRM-{{ suitecrm_version }}.zip" 
-#    state: absent
+- name: "Remove Oracle zipfile "
+  file:
+    path: "/opt/install/{{ installer_archives }}" 
+    state: absent

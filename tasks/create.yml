@@ -12,7 +12,7 @@
   with_items: 
      - "{{ installer_archives }}" 
 
-- name: "Delete old extract files"
+- name: "ATTENTION!!! Delete old extract files"
   shell: rm -rf /opt/install/database/
   args:
      warn: no
@@ -40,5 +40,5 @@
   become_method: su
 
 - name: "Run root.sh"
-  shell: "/opt/db/oracle/product/11g/root.sh"
+  shell: "{{ oracle_db_home }}/root.sh"
 
