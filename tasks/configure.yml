@@ -16,25 +16,6 @@
 #    state: stopped
 #    enabled: no 
 
-- name: "Delete Old database"
-  become: true
-  become_user: oracle
-  become_method: su
-  shell: "{{ oracle_db_home }}/bin/dbca -silent -deleteDatabase -sourceDB {{ oracle_db_name }}"
-
-- name: "Remove old dbora and links"
-  shell: rm -rf "{{ item }}"
-  with_items:
-      - /opt/db/oraInventory
-      - /opt/db/*
-      - /etc/init.d/dbora
-      - /etc/rc.d/rc3.d/S98dbora
-      - /etc/rc.d/rc3.d/K01dbora
-      - /etc/rc.d/rc5.d/S98dbora
-      - /etc/rc.d/rc5.d/K01dbora
-  args:
-     warn: no
-
 - name: "Add oracle repository" 
   template: 
     src: public-yum-ol6.repo.j2   
@@ -58,6 +39,7 @@
 # ==> Create users and groups 
 - name: "Create groups" 
   group:
+#     name: "{{ oracle_install_group }}"
     name: oinstall
     state: present 
 
@@ -65,6 +47,7 @@
   group: 
     name: "{{ item }}"
     state: present 
+#  with_items: extra_groups
   with_items:
         - dba
         - oper
@@ -85,9 +68,10 @@
        - oper 
 
 - name: "Create ORA_HOME dir" 
-  shell: ORA_HOME="{{ oracle_path }}"
+  shell: ORA_HOME=/opt/db
+#- shell: mkdir -p /opt/db/oracle/product/11g
 - file:  
-     path: "{{ oracle_db_home }}"  
+     path: /opt/db/oracle/product/11g  
      state: directory
      recurse: yes 
      owner: oracle 
@@ -121,8 +105,19 @@
   lineinfile:  
      dest: /home/oracle/.bash_profile
      regexp: ^ORACLE_SID=me  
-     line: ORACLE_SID=oracle11 
+     line: ORACLE_SID=oracle 
      backup: yes 
+
+- name: "Remove old dbora and links"
+  shell: rm -rf "{{ item }}"
+  with_items:
+      - /etc/init.d/dbora
+      - /etc/rc.d/rc3.d/S98dbora 
+      - /etc/rc.d/rc3.d/K01dbora 
+      - /etc/rc.d/rc5.d/S98dbora 
+      - /etc/rc.d/rc5.d/K01dbora
+  args:
+     warn: no
 
 - name: "Add the 'dbora' config files"
   template:

@@ -40,5 +40,5 @@
   become_method: su
 
 - name: "Run root.sh"
-  shell: "{{ oracle_db_home }}/root.sh"
+  shell: "/opt/db/oracle/product/11g/root.sh"
 
