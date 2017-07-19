@@ -34,7 +34,7 @@ oracle.install.option=INSTALL_DB_SWONLY
 # first hostname found on the system. (e.g., for systems with multiple hostnames 
 # and network interfaces)
 #-------------------------------------------------------------------------------
-ORACLE_HOSTNAME={{ oracle_hostname }}
+ORACLE_HOSTNAME=oracle
 
 #-------------------------------------------------------------------------------
 # Specify the Unix group to be set for the inventory directory.  
@@ -46,7 +46,7 @@ UNIX_GROUP_NAME=
 # This is an optional parameter if installing on
 # Windows based Operating System.
 #-------------------------------------------------------------------------------
-#INVENTORY_LOCATION={{inventory_location}}
+INVENTORY_LOCATION=
 
 #-------------------------------------------------------------------------------
 # Specify the languages in which the components will be installed.             
@@ -89,13 +89,13 @@ SELECTED_LANGUAGES=en,ro,ru
 # Specify the complete path of the Oracle Home.
 #------------------------------------------------------------------------------
 #ORACLE_HOME=/opt/db/oracle/product/11g
-ORACLE_HOME={{ oracle_db_home }}
+#ORACLE_HOME="{{ oracle_db_home }}"
 
 #------------------------------------------------------------------------------
 # Specify the complete path of the Oracle Base. 
 #------------------------------------------------------------------------------
 #ORACLE_BASE=/opt/db
-ORACLE_BASE={{ oracle_path }}
+ORACLE_BASE="{{ oracle_path }}"
 
 #------------------------------------------------------------------------------
 # Specify the installation edition of the component.                        
@@ -106,8 +106,8 @@ ORACLE_BASE={{ oracle_path }}
 #   - SEONE  : Standard Edition One
 #   - PE     : Personal Edition (WINDOWS ONLY)
 #------------------------------------------------------------------------------
-#oracle.install.db.InstallEdition=EE
-oracle.install.db.InstallEdition={{ oracle_edition }}
+oracle.install.db.InstallEdition=EE
+#oracle.install.db.InstallEdition="{{ oracle_edition }}"
 
 #------------------------------------------------------------------------------
 # This variable is used to enable or disable custom install and is considered
@@ -161,8 +161,8 @@ oracle.install.db.DBA_GROUP=dba
 # The OPER_GROUP is the OS group which is to be granted OSOPER privileges.
 # The value to be specified for OSOPER group is optional.
 #------------------------------------------------------------------------------
-#oracle.install.db.OPER_GROUP=oper
-oracle.install.db.OPER_GROUP={{ oracle_oper_group }}
+oracle.install.db.OPER_GROUP=oper
+#oracle.install.db.OPER_GROUP="{{ oracle_oper_group }}"
 
 #------------------------------------------------------------------------------
 # Specify the cluster node names selected during the installation.
@@ -215,8 +215,8 @@ oracle.install.db.config.starterdb.SID=
 # KO16MSWIN949, ZHS16GBK, TH8TISASCII, ZHT32EUC, ZHT16MSWIN950,
 # ZHT16HKSCS, WE8ISO8859P9, TR8MSWIN1254, VN8MSWIN1258
 #------------------------------------------------------------------------------
-#oracle.install.db.config.starterdb.characterSet=CL8MSWIN1251
-oracle.install.db.config.starterdb.characterSet={{ oracle_characterSet }}
+oracle.install.db.config.starterdb.characterSet=CL8MSWIN1251
+#oracle.install.db.config.starterdb.characterSet="{{ oracle_characterSet }}"
 
 #------------------------------------------------------------------------------
 # This variable should be set to true if Automatic Memory Management 
