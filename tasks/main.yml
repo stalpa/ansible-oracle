@@ -11,5 +11,9 @@
 - name: "DB"
   include: db.yml
 
+- name: "Configuring DB"
+  include: sql.yml
+
 - name: "Cleanup"
   include: cleanup.yml
+

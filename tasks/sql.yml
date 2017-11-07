@@ -1,0 +1,40 @@
+---
+
+- name: "Template script.sql"
+  template:
+     src: script.sql
+     dest: /home/oracle/script.sql
+     owner: oracle     
+     group: oinstall
+
+- name: "Execute script.sql"
+  become: true
+  become_user: oracle
+  become_method: su
+  shell: . /home/oracle/.bash_profile && {{ oracle_db_home }}/bin/sqlplus "/as sysdba" @/home/oracle/script.sql
+
+- name: "Delete script.sql"
+  file: 
+    path: /home/oracle/script.sql
+    state: absent  
+
+- name: "Create un4 directory"
+  file:
+    path: /opt/db/oracle/oradata/un4
+    state: directory
+    owner: oracle
+    group: oinstall
+
+- name: "Template tablespace.sql"
+  template:
+     src: tablespace.sql
+     dest: /home/oracle/tablespace.sql
+     owner: oracle
+     group: oinstall
+     mode: 0644
+
+- name: "Execute tablespace.sql"
+  become: true
+  become_user: oracle
+  become_method: su
+  shell: . /home/oracle/.bash_profile && {{ oracle_db_home }}/bin/sqlplus "/as sysdba" @/home/oracle/tablespace.sql

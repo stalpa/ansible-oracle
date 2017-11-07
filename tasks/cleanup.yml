@@ -14,3 +14,9 @@
   file:
     path: "/opt/install/{{ installer_archives }}" 
     state: absent
+
+#- name: notify telegram users
+#  telegram:
+#    token: "bot278308776:AAG4OF9vo5HZpqdoVGZe6YIbOBl-oDBNgSQ"
+#    chat_id: 254827606
+#    msg: Ansible Task has been finished successfully. Result= {{ result|succeeded }}{{ hello.stdout }}{{ hello.stderr }}

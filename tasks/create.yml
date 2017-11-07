@@ -1,4 +1,5 @@
 ---
+
 - name: "Create folder for installation files" 
   file: 
     state: directory 
@@ -18,10 +19,18 @@
      warn: no
   
 # ==> extract files 
-- name: "Extract installation files" 
-  command: 'unzip /opt/install/"{{ item }}" -d /opt/install/' 
-  with_items: 
-     - "{{ installer_archives }}" 
+#- name: "Extract installation files" 
+#  command: 'unzip /opt/install/"{{ item }}" -d /opt/install/' 
+#  with_items: 
+#     - "{{ installer_archives }}" 
+
+- name: Unarchive installation files"
+  unarchive:
+    src: /opt/install/{{ item }}
+    dest: /opt/install/
+    remote_src: yes
+  with_items:
+    - "{{ installer_archives }}"
 
 # ==> generate response file 
 - name: "Gerenerate the response file for software only installation" 

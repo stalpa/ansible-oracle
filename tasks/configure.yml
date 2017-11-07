@@ -15,6 +15,7 @@
 #    name: firewalld
 #    state: stopped
 #    enabled: no 
+#
 
 - pause:
     prompt: "Make sure Database is not in Production"
@@ -28,8 +29,8 @@
 - name: "ATTENTION!!! Remove old Oracle, dbora and links"
   shell: rm -rf "{{ item }}"
   with_items:
-      - /etc/oraInstal.loc
-      - /opt/db/oracle/oraInventory
+      - /etc/oraInst.loc
+      - /opt/db/oraInventory
       - /opt/db/*
       - /etc/init.d/dbora
       - /etc/rc.d/rc3.d/S98dbora
@@ -40,18 +41,13 @@
   args:
      warn: no
 
-#- name: "Add oracle repository" 
-#  template: 
-#    src: public-yum-ol6.repo.j2   
-#    dest: /etc/yum.repos.d/public-yum-ol6.repo 
-#    owner: root
-#    group: root
-#    mode: 0644
-
-#- name: "Copy and install RPM-GPG-KEY-oracle-ol"
-#  template:
-#    src: RPM-GPG-KEY-oracle-ol6.j2
-#    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+- name: "Install an additional OS packages"
+  yum:
+     pkg: "{{ item }}"
+     state: present
+     update_cache: yes
+  with_items:
+     - "{{ add_packages }}"
 
 - name: "Add oracle repository"
   template:
@@ -66,14 +62,14 @@
     src: "{{ RPM_GPG_KEY_oracle }}"
     dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
 
-
 - name: "Install dependencies"
   yum:
      pkg: "{{ item }}"
      state: present
+     update_cache: yes
   with_items:
     - "{{ oracle_dependencies }}"
-
+  ignore_errors: true
 
 #-----------------------------------------------------------------
 
@@ -151,8 +147,10 @@
   lineinfile:  
      dest: /home/oracle/.bash_profile
      regexp: ^ORACLE_SID=me  
-     line: ORACLE_SID="{{ oracle_db_name }}" 
+     line: ORACLE_SID={{ oracle_db_name }}
      backup: yes 
+
+#---------------------------------------------
 
 - name: "Add the 'dbora' config files"
   template:
@@ -161,10 +159,47 @@
     owner: root
     group: root
     mode: 0655
+  when: ansible_distribution_major_version|int==6
 
 - name: "enable 'dbora' script to run at startup"
   shell: chkconfig --add dbora 
+  when: ansible_distribution_major_version|int==6
 - shell: ln -s /etc/init.d/dbora /etc/rc.d/rc3.d/S98dbora
+  when: ansible_distribution_major_version|int==6
 - shell: ln -s /etc/init.d/dbora /etc/rc.d/rc3.d/K01dbora
+  when: ansible_distribution_major_version|int==6
 - shell: ln -s /etc/init.d/dbora /etc/rc.d/rc5.d/S98dbora
+  when: ansible_distribution_major_version|int==6
 - shell: ln -s /etc/init.d/dbora /etc/rc.d/rc5.d/K01dbora
+  when: ansible_distribution_major_version|int==6
+
+- name: "Add the 'dbora.service' config files"
+  template:
+    src: dbora.service
+    dest: /lib/systemd/system/dbora.service
+    owner: root
+    group: root
+    mode: 0655
+  when: ansible_distribution_major_version|int==7
+
+- name: "enable 'dbora' script to run at startup"
+  shell: systemctl enable dbora.service
+  when: ansible_distribution_major_version|int==7
+
+- name: "Copy start_all.sh"
+  template:
+    src: start_all.sh
+    dest: /home/oracle/start_all.sh
+    owner: oracle
+    group: dba
+    mode: 0640
+  when: ansible_distribution_major_version|int==7
+
+- name: "Copy stop_all.sh"
+  template:
+    src: stop_all.sh
+    dest: /home/oracle/stop_all.sh
+    owner: oracle
+    group: dba
+    mode: 0640
+  when: ansible_distribution_major_version|int==7
