@@ -75,7 +75,7 @@ OPERATION_TYPE = "createDatabase"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-GDBNAME = "orcl11g.us.oracle.com"
+GDBNAME = {{oracle_db_name }}
 
 #-----------------------------------------------------------------------------
 # Name          : RACONENODE
@@ -85,7 +85,7 @@ GDBNAME = "orcl11g.us.oracle.com"
 # Default value : FALSE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#RACONENODE  = "false"
+RACONENODE  = false
 
 #-----------------------------------------------------------------------------
 # Name          : RACONENODESERVICENAME
@@ -107,7 +107,7 @@ GDBNAME = "orcl11g.us.oracle.com"
 # Default value : FALSE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#POLICYMANAGED = "false"
+POLICYMANAGED = false
 
 #-----------------------------------------------------------------------------
 # Name          : CREATESERVERPOOL
@@ -167,7 +167,7 @@ GDBNAME = "orcl11g.us.oracle.com"
 # Default value : <db_name> specified in GDBNAME
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-SID = "orcl11g"
+SID = {{ oracle_db_name }}
 
 #-----------------------------------------------------------------------------
 # Name          : NODELIST
@@ -208,7 +208,7 @@ TEMPLATENAME = "General_Purpose.dbc"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-#SYSPASSWORD = "password"
+SYSPASSWORD = {{ oracle_db_syspass }}
 
 #-----------------------------------------------------------------------------
 # Name          : SYSTEMPASSWORD
@@ -218,7 +218,7 @@ TEMPLATENAME = "General_Purpose.dbc"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-#SYSTEMPASSWORD = "password"
+SYSTEMPASSWORD = {{ oracle_db_system }}
 
 #-----------------------------------------------------------------------------
 # Name          : EMCONFIGURATION
@@ -228,7 +228,7 @@ TEMPLATENAME = "General_Purpose.dbc"
 # Default value : NONE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#EMCONFIGURATION = "NONE"
+EMCONFIGURATION = "NONE"
 
 #-----------------------------------------------------------------------------
 # Name          : DISABLESECURITYCONFIGURATION
@@ -259,7 +259,7 @@ TEMPLATENAME = "General_Purpose.dbc"
 # Default value : None
 # Mandatory     : Yes, if EMCONFIGURATION is specified
 #-----------------------------------------------------------------------------
-#DBSNMPPASSWORD = "password"
+DBSNMPPASSWORD = {{ oracle_db_dbsnmp }}
 
 #-----------------------------------------------------------------------------
 # Name          : CENTRALAGENT
@@ -357,7 +357,7 @@ TEMPLATENAME = "General_Purpose.dbc"
 # Default value : $ORACLE_BASE/oradata
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#DATAFILEDESTINATION =
+DATAFILEDESTINATION = {{ oracle_path }}/oracle/oradata
 
 #-----------------------------------------------------------------------------
 # Name          : RECOVERYAREADESTINATION
@@ -367,7 +367,7 @@ TEMPLATENAME = "General_Purpose.dbc"
 # Default value : $ORACLE_BASE/flash_recovery_area
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#RECOVERYAREADESTINATION=
+RECOVERYAREADESTINATION= {{ oracle_path }}/oracle/flash_recovery_area
 
 #-----------------------------------------------------------------------------
 # Name          : STORAGETYPE
@@ -415,7 +415,7 @@ TEMPLATENAME = "General_Purpose.dbc"
 # Default value : "US7ASCII"
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-#CHARACTERSET = "US7ASCII"
+CHARACTERSET = CL8MSWIN1251
 
 #-----------------------------------------------------------------------------
 # Name          : NATIONALCHARACTERSET
@@ -520,7 +520,7 @@ TEMPLATENAME = "General_Purpose.dbc"
 # Default value : None
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-#MEMORYPERCENTAGE = "40"
+MEMORYPERCENTAGE = 70
 
 #-----------------------------------------------------------------------------
 # Name          : DATABASETYPE
