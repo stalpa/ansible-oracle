@@ -1,4 +1,7 @@
 ---
+# Instruction =>https://oracle-base.com/articles/linux/linux-services-systemd#creating-linux-services
+# https://oracle-base.com/articles/linux/automating-database-startup-and-shutdown-on-linux 
+#
 
 ol_repo_file: "{% if ansible_distribution_major_version|int==6%}{{ ol6_repo_file }}{%elif ansible_distribution_major_version|int==7 %}{{ ol7_repo_file }}{% else %}None{% endif %}"
 
@@ -10,30 +13,20 @@ RPM_GPG_KEY_oracle: "{% if ansible_distribution_major_version|int==6%}{{ RPM_GPG
 RPM_GPG_KEY_oracle_ol6: RPM_GPG_KEY_oracle_ol6
 RPM_GPG_KEY_oracle_ol7: RPM_GPG_KEY_oracle_ol7
 
+#dbora.j2
+#dbora.service
 
-
-#- name: "Add oracle repository"
-#  template:
-#    src: "{{ ol_repo_file }}" 
-#    dest: /etc/yum.repos.d/"{{ ol_repo_file }}".repo
-#    owner: root
-#    group: root
-#    mode: 0644
-
-#- name: "Copy and install RPM-GPG-KEY-oracle-ol"
-#  template:
-#    src: "{{ RPM-GPG-KEY-oracle }}"
-#    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
-
+add_packages:
+    - epel-release
+    - libselinux-python
+    - elfutils-libelf-devel
+    - unzip
+    - wget 
 
 oracle_dependencies:
-     - epel-release
-     - unzip
-     - htop
-     - wget
-     - elfutils-libelf-devel
      - kernel-uek
      - oracle-rdbms-server-11gR2-preinstall
+     - htop
 
 installer_archives:
      - p13390677_112040_Linux-x86-64_1of7.zip
@@ -42,16 +35,16 @@ installer_archives:
 # defaults for oracle installation
 
 # to be added to /etc/hosts
-oracle_hostname: oracle1
+oracle_hostname: oracledb
 
 # location for temporary installation files
 oracle_tmp: /tmp/oracle
 
 # INVENTORY_LOCATION
-inventory_location: /opt/db/oracle/oraInventory
+inventory_location: /opt/db/oraInventory
 
 # Version of Oracle
-oracle_edition: SEONE
+oracle_edition: EE
 
 #
 # oracle connection settings
@@ -61,7 +54,7 @@ oracle_edition: SEONE
 oracle_path: /opt/db
 
 # ORACLE_SID
-oracle_db_name: oracle11
+oracle_db_name: cloudbd
 
 # ORACLE_HOME basename, {{ oracle_path }}/oracle/product/11g
 oracle_db_home: "{{ oracle_path }}/oracle/product/11g"
@@ -77,9 +70,9 @@ oracle_db_syspass: sys
 oracle_db_system: system
 oracle_db_dbsnmp: dbsnmp
 
-# system memory to allocate to the db server (60% total memory)
+# system memory to allocate to the db server (70% total memory)
 oracle_characterSet: CL8MSWIN1251
-oracle_memoryPercentage: 60
+oracle_memoryPercentage: 70
 
 #
 # oracle system user
@@ -98,5 +91,3 @@ oracle_dba_group: dba
 
 # Oper group
 oracle_oper_group: oper
-
-
