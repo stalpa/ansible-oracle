@@ -12,8 +12,10 @@
 
 - name: "Remove Oracle zipfile "
   file:
-    path: "/opt/install/{{ installer_archives }}" 
+    path: /opt/install/"{{ item }}"
     state: absent
+  with_items:
+    - "{{ installer_archives }}"
 
 #- name: notify telegram users
 #  telegram:

@@ -415,7 +415,8 @@ RECOVERYAREADESTINATION= {{ oracle_path }}/oracle/flash_recovery_area
 # Default value : "US7ASCII"
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-CHARACTERSET = CL8MSWIN1251
+#CHARACTERSET = CL8MSWIN1251
+CHARACTERSET = {{ oracle_characterSet }}
 
 #-----------------------------------------------------------------------------
 # Name          : NATIONALCHARACTERSET
@@ -520,7 +521,8 @@ CHARACTERSET = CL8MSWIN1251
 # Default value : None
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-MEMORYPERCENTAGE = 70
+#MEMORYPERCENTAGE = 70
+MEMORYPERCENTAGE = {{ oracle_memoryPercentage }}
 
 #-----------------------------------------------------------------------------
 # Name          : DATABASETYPE

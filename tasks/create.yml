@@ -18,13 +18,7 @@
   args:
      warn: no
   
-# ==> extract files 
-#- name: "Extract installation files" 
-#  command: 'unzip /opt/install/"{{ item }}" -d /opt/install/' 
-#  with_items: 
-#     - "{{ installer_archives }}" 
-
-- name: Unarchive installation files"
+- name: Extract installation files"
   unarchive:
     src: /opt/install/{{ item }}
     dest: /opt/install/
