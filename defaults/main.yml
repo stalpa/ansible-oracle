@@ -35,7 +35,7 @@ installer_archives:
 # defaults for oracle installation
 
 # to be added to /etc/hosts
-oracle_hostname: test123
+oracle_hostname: oralin
 
 # location for temporary installation files
 oracle_tmp: /tmp/oracle
@@ -54,7 +54,7 @@ oracle_edition: SEONE
 oracle_path: /opt/db
 
 # ORACLE_SID
-oracle_db_name: test123
+oracle_db_name: oralin
 
 # ORACLE_HOME basename, {{ oracle_path }}/oracle/product/11g
 oracle_db_home: "{{ oracle_path }}/oracle/product/11g"

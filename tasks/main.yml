@@ -17,3 +17,22 @@
 - name: "Cleanup"
   include: cleanup.yml
 
+---
+- name: "Configuring"
+  include: configure.yml
+
+- name: "Create"
+  include: create.yml
+
+- name: "Listener"
+  include: listener.yml
+
+- name: "DB"
+  include: db.yml
+
+- name: "Configuring DB"
+  include: sql.yml
+
+- name: "Cleanup"
+  include: cleanup.yml
+
