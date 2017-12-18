@@ -1,0 +1,22 @@
+---
+
+- name: "Create directory"
+  file:
+    path: /root/bin
+    state: directory
+    owner: oracle
+    group: oinstall
+
+- name: "Template backup_daily.sh"
+  template:
+     src: backup_daily.sh
+     dest: /root/bin/backup_daily.sh
+     owner: oracle
+     group: oinstall
+
+- name: "Manage cron"
+  cron:
+    name: "Backup DB"
+    minute: "30"
+    hour: "23"
+    job: "/root/bin/backup_daily.sh"
