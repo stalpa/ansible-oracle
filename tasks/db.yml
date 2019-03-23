@@ -20,7 +20,8 @@
   become: true
   become_user: oracle
   become_method: su
-  shell: /opt/db/oracle/product/11g/bin/dbca -createDatabase -responseFile /tmp/dbca.rsp -silent
+#  shell: /opt/db/oracle/product/11g/bin/dbca -createDatabase -responseFile /tmp/dbca.rsp -silent
+  shell: "{{ oracle_db_home }}/bin/dbca -createDatabase -responseFile /tmp/dbca.rsp -silent"
 
 - name: "Update oratab for autostart"
   replace: 

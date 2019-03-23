@@ -1,0 +1,9 @@
+---
+
+- name: "Install Oracle"
+  hosts: oracle
+  user: root
+  become: yes
+
+  roles:
+  - role: ansible-oracle

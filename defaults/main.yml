@@ -35,13 +35,14 @@ installer_archives:
 # defaults for oracle installation
 
 # to be added to /etc/hosts
-oracle_hostname: oradb
+oracle_hostname: orahostname
 
 # location for temporary installation files
 oracle_tmp: /tmp/oracle
 
 # INVENTORY_LOCATION
-inventory_location: /opt/db/oraInventory
+#inventory_location: /opt/db/oraInventory
+inventory_location: /home/db/oraInventory
 
 # Version of Oracle
 oracle_edition: SEONE
@@ -51,10 +52,10 @@ oracle_edition: SEONE
 #
 
 # ORACLE_BASE parent, {{ oracle_path }}/oracle
-oracle_path: /opt/db
+oracle_path: /home/db
 
 # ORACLE_SID
-oracle_db_name: zorile
+oracle_db_name: oradb
 
 # ORACLE_HOME basename, {{ oracle_path }}/oracle/product/11g
 oracle_db_home: "{{ oracle_path }}/oracle/product/11g"
@@ -72,7 +73,7 @@ oracle_db_dbsnmp: dbsnmp
 
 # system memory to allocate to the db server (70% total memory)
 oracle_characterSet: CL8MSWIN1251
-oracle_memoryPercentage: 70
+oracle_memoryPercentage: 60
 
 #
 # oracle system user

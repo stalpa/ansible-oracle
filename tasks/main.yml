@@ -12,11 +12,11 @@
 #- name: "DB"
 #  include: db.yml
 
-#- name: "Configuring DB"
-#  include: sql.yml
+- name: "Configuring DB"
+  include: sql.yml
 
-#- name: "Cleanup"
-#  include: cleanup.yml
+- name: "Cleanup"
+  include: cleanup.yml
 
 - name: "Setup Backup"
   include: backup.yml

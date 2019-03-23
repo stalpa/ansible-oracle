@@ -5,7 +5,7 @@ umask 022
 PATH=/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin:$PATH
 LD_LIBRARY_PATH=/usr/lib:/usr/X11R6/lib:$LD_LIBRARY_PATH
 NLS_LANG=american_russia.cl8mswin1251
-ORACLE_BASE=/opt/db/oracle
+ORACLE_BASE={{ oracle_path }}
 ORACLE_HOME=$ORACLE_BASE/product/11g
 ORACLE_SID=me
 PATH=$ORACLE_HOME/bin:$PATH

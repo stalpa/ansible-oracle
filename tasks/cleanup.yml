@@ -19,6 +19,6 @@
 
 #- name: notify telegram users
 #  telegram:
-#    token: "bot278308776:AAG4OF9vo5HZpqdoVGZe6YIbOBl-oDBNgSQ"
-#    chat_id: 254827606
+#    token: "bot278308776:AAG4OF9vo5HZpqdoVGZe6YIBl-oDBNgSQ"
+#    chat_id: 2548606
 #    msg: Ansible Task has been finished successfully. Result= {{ result|succeeded }}{{ hello.stdout }}{{ hello.stderr }}
